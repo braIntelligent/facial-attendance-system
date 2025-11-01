@@ -163,8 +163,11 @@ nano .env  # Editar con tus credenciales
 # Iniciar base de datos MySQL
 docker-compose up -d
 
+# Esperar 10 segundos a que MySQL esté listo
+sleep 10
+
 # Ejecutar migraciones (crear tablas)
-python -m app.core.database --init-schema
+python init_db.py
 
 # Iniciar servidor
 python -m app.main
