@@ -2,9 +2,9 @@
 
 ## Cambios Principales
 
-### Estructura Antigua (IOT/client/)
+### Estructura Antigua (proyecto-anterior/client/)
 ```
-/Users/matiascataldo/Desktop/IOT/client/
+~/proyecto-anterior/client/
 ├── index.html    (1 archivo monolitico con TODO)
 ├── app.js        (490 lineas - toda la logica mezclada)
 └── styles.css    (549 lineas - todos los estilos)

@@ -16,7 +16,7 @@
 **Opcion A: Desarrollo Local**
 ```bash
 # Navega al directorio
-cd /Users/matiascataldo/Desktop/facial-attendance-system/web-dashboard/views
+cd ~/facial-attendance-system/web-dashboard/views
 
 # Abre en navegador (Mac)
 open index.html
@@ -27,7 +27,7 @@ open index.html
 **Opcion B: Servidor Web**
 ```bash
 # Si tienes Python instalado (servidor simple)
-cd /Users/matiascataldo/Desktop/facial-attendance-system/web-dashboard
+cd ~/facial-attendance-system/web-dashboard
 python3 -m http.server 8080
 
 # Abre en navegador
@@ -74,7 +74,7 @@ python3 -m http.server 8080
 
 ### Cambiar URL del Backend
 
-Editar `/Users/matiascataldo/Desktop/facial-attendance-system/web-dashboard/assets/js/config.js`:
+Editar `~/facial-attendance-system/web-dashboard/assets/js/config.js`:
 
 ```javascript
 const CONFIG = {
@@ -194,7 +194,7 @@ Si no ves estos mensajes, hay un error en la carga de scripts.
 
 ### Verificar estructura de archivos
 ```bash
-cd /Users/matiascataldo/Desktop/facial-attendance-system/web-dashboard
+cd ~/facial-attendance-system/web-dashboard
 tree
 ```
 

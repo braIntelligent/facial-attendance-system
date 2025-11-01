@@ -10,7 +10,7 @@ Como la Raspberry Pi está en una red privada (tu oficina, tu casa, etc.) y no e
 
 ```bash
 # Desde tu Mac/PC
-ssh -L 8080:localhost:8080 matias@<IP-RASPBERRY>
+ssh -L 8080:localhost:8080 pi@<IP-RASPBERRY>
 
 # Deja esta terminal abierta
 # Ahora abre en tu navegador:
@@ -19,13 +19,13 @@ http://localhost:8080
 
 **Explicación:**
 - `-L 8080:localhost:8080` = Reenvía el puerto 8080 de la Pi al puerto 8080 de tu Mac
-- `matias@<IP-RASPBERRY>` = Reemplaza con tu usuario y la IP de tu Raspberry
+- `pi@<IP-RASPBERRY>` = Reemplaza con tu usuario y la IP de tu Raspberry
 
 ### Opción 2: Túnel SSH en Background
 
 ```bash
 # Crea el túnel en background
-ssh -f -N -L 8080:localhost:8080 matias@<IP-RASPBERRY>
+ssh -f -N -L 8080:localhost:8080 pi@<IP-RASPBERRY>
 
 # Ahora abre:
 http://localhost:8080
@@ -95,7 +95,7 @@ Si quieres que el túnel se mantenga siempre activo:
 brew install autossh
 
 # Crear túnel permanente
-autossh -M 0 -f -N -L 8080:localhost:8080 matias@<IP-RASPBERRY>
+autossh -M 0 -f -N -L 8080:localhost:8080 pi@<IP-RASPBERRY>
 ```
 
 ---
@@ -152,7 +152,7 @@ https://abc123.ngrok-free.app
 
 ```bash
 # Antes de la presentación, crear túnel SSH:
-ssh -L 8080:localhost:8080 matias@<IP-RASPBERRY-EN-RED-LOCAL>
+ssh -L 8080:localhost:8080 pi@<IP-RASPBERRY-EN-RED-LOCAL>
 
 # Abrir:
 http://localhost:8080
@@ -209,7 +209,7 @@ sudo systemctl start ssh
 lsof -i :8080
 
 # Usar otro puerto local
-ssh -L 8081:localhost:8080 matias@<IP-RASPBERRY>
+ssh -L 8081:localhost:8080 pi@<IP-RASPBERRY>
 # Ahora abre: http://localhost:8081
 ```
 

@@ -285,10 +285,10 @@ Requires=docker.service
 
 [Service]
 Type=simple
-User=adminiot
-WorkingDirectory=/home/adminiot/facial-attendance-system/server
-Environment=PATH=/home/adminiot/facial-attendance-system/server/venv/bin
-ExecStart=/home/adminiot/facial-attendance-system/server/venv/bin/python -m app.main
+User=usuario
+WorkingDirectory=/home/usuario/facial-attendance-system/server
+Environment=PATH=/home/usuario/facial-attendance-system/server/venv/bin
+ExecStart=/home/usuario/facial-attendance-system/server/venv/bin/python -m app.main
 Restart=always
 RestartSec=10
 

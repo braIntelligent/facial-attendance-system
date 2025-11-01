@@ -7,10 +7,10 @@ Esta guía te ayudará a configurar la Raspberry Pi para que el cliente de cáma
 ## 📋 Requisitos Previos
 
 - Raspberry Pi con Raspbian/Raspberry Pi OS
-- Código clonado en `/home/matias/facial-attendance-system/raspberry-pi`
+- Código clonado en `/home/pi/facial-attendance-system/raspberry-pi`
 - Dependencias instaladas (`pip3 install --break-system-packages -r requirements.txt`)
 - Archivo `.env` configurado
-- Usuario: `matias` (cambiar si usas otro usuario)
+- Usuario: `pi` (usuario predeterminado de Raspberry Pi OS)
 
 ---
 
@@ -19,7 +19,7 @@ Esta guía te ayudará a configurar la Raspberry Pi para que el cliente de cáma
 ### 1. Editar archivo de servicio (si usas otro usuario)
 
 ```bash
-# Si tu usuario NO es "matias", editar el servicio:
+# Si tu usuario NO es "pi", editar el servicio:
 nano ~/facial-attendance-system/raspberry-pi/camera-client.service
 
 # Cambiar las líneas:
@@ -200,10 +200,10 @@ python3 camera_client.py
 
 ```bash
 # Agregar usuario al grupo gpio
-sudo usermod -a -G gpio matias
+sudo usermod -a -G gpio pi
 
 # Agregar usuario al grupo video (cámara)
-sudo usermod -a -G video matias
+sudo usermod -a -G video pi
 
 # Cerrar sesión y volver a entrar para aplicar cambios
 exit
@@ -298,10 +298,10 @@ chromium-browser http://localhost:8080
 # Desde otra computadora en la misma red
 # Averiguar IP de la Pi:
 hostname -I
-# Ejemplo: 192.168.1.100
+# Ejemplo: 192.168.1.50
 
 # Abrir en navegador:
-# http://192.168.1.100:8080
+# http://192.168.1.50:8080
 ```
 
 ---
@@ -314,7 +314,7 @@ Si estás en otra red y quieres ver el stream:
 
 ```bash
 # Desde tu Mac/PC:
-ssh -L 8080:localhost:8080 matias@<IP-RASPBERRY>
+ssh -L 8080:localhost:8080 pi@<IP-RASPBERRY>
 
 # Mantener esa terminal abierta
 # Abrir en navegador:

@@ -5,15 +5,15 @@ Requires=docker.service
 
 [Service]
 Type=simple
-User=adminiot
-Group=adminiot
-WorkingDirectory=/home/adminiot/facial-attendance-system/server
+User=usuario
+Group=usuario
+WorkingDirectory=/home/usuario/facial-attendance-system/server
 
 # Usar venv de Python
-Environment="PATH=/home/adminiot/facial-attendance-system/server/venv/bin"
+Environment="PATH=/home/usuario/facial-attendance-system/server/venv/bin"
 
 # Comando para iniciar Uvicorn
-ExecStart=/home/adminiot/facial-attendance-system/server/venv/bin/uvicorn \
+ExecStart=/home/usuario/facial-attendance-system/server/venv/bin/uvicorn \
     app.main:app \
     --host 0.0.0.0 \
     --port 8000 \

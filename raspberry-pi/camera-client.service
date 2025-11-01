@@ -5,12 +5,12 @@ Wants=network-online.target
 
 [Service]
 Type=simple
-User=matias
-Group=matias
-WorkingDirectory=/home/matias/facial-attendance-system/raspberry-pi
+User=pi
+Group=pi
+WorkingDirectory=/home/pi/facial-attendance-system/raspberry-pi
 
 # Ejecutar con Python3 del sistema (usamos --break-system-packages)
-ExecStart=/usr/bin/python3 /home/matias/facial-attendance-system/raspberry-pi/camera_client.py
+ExecStart=/usr/bin/python3 /home/pi/facial-attendance-system/raspberry-pi/camera_client.py
 
 # Reiniciar automáticamente si falla
 Restart=always

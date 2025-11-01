@@ -9,7 +9,7 @@ Esta guía te ayudará a configurar el servidor para que inicie automáticamente
 - Servidor configurado con Python y venv
 - MySQL/Docker corriendo
 - Nginx configurado
-- Usuario: `adminiot`
+- Usuario configurado en el servidor (ej: `usuario`)
 
 ---
 
@@ -162,13 +162,13 @@ sudo systemctl daemon-reload
 sudo journalctl -u attendance-server -n 100 --no-pager
 
 # Verificar permisos
-ls -l /home/adminiot/facial-attendance-system/server
+ls -l ~/facial-attendance-system/server
 
 # Verificar que venv existe
-ls -l /home/adminiot/facial-attendance-system/server/venv/bin/uvicorn
+ls -l ~/facial-attendance-system/server/venv/bin/uvicorn
 
 # Probar inicio manual
-cd /home/adminiot/facial-attendance-system/server
+cd ~/facial-attendance-system/server
 source venv/bin/activate
 python -m app.main
 ```
