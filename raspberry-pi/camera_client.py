@@ -154,7 +154,7 @@ class PiCliente:
     async def stream_video_websocket(self):
         """
         Streaming de video via WebSocket para frontend
-        Envía frames a 0.5 FPS (cada 2 segundos)
+        Envía frames a 0.5 FPS (cada 2 segundos) y mantiene conexión viva con pings
         """
         if not WS_AVAILABLE:
             logger.warning("WebSocket streaming deshabilitado: librería websockets no disponible")
@@ -169,32 +169,65 @@ class PiCliente:
                     logger.info(f"✅ WebSocket conectado para streaming")
 
                     last_frame_time = 0
+                    last_ping_time = 0
                     frame_interval = 1.0 / WS_STREAM_FPS  # Intervalo entre frames
+                    ping_interval = 30  # Ping cada 30 segundos
 
-                    while True:
-                        current_time = time.time()
+                    async def receive_messages():
+                        """Task para recibir mensajes del servidor"""
+                        try:
+                            while True:
+                                mensaje = await websocket.recv()
+                                data = json.loads(mensaje)
 
-                        # Enviar frame solo si pasó el intervalo
-                        if current_time - last_frame_time >= frame_interval:
-                            frame = self.get_frame()
-                            if frame:
-                                # Codificar a base64
-                                frame_b64 = base64.b64encode(frame).decode('utf-8')
+                                if data.get("type") == "pong":
+                                    logger.debug(f"Pong recibido del servidor")
+                                elif data.get("type") == "led_control":
+                                    # Controlar LED si el servidor envía comando
+                                    color = data.get("color", "green")
+                                    duration = data.get("duration", 2)
+                                    self.control_led(color, duration)
+                        except Exception as e:
+                            logger.debug(f"Listener terminado: {e}")
 
-                                # Crear mensaje
-                                mensaje = {
-                                    "type": "video_frame",
-                                    "frame": frame_b64,
-                                    "timestamp": current_time,
-                                    "device_id": DEVICE_ID
-                                }
+                    # Iniciar task de recepción de mensajes
+                    receive_task = asyncio.create_task(receive_messages())
 
-                                # Enviar
-                                await websocket.send(json.dumps(mensaje))
-                                last_frame_time = current_time
+                    try:
+                        while True:
+                            current_time = time.time()
 
-                        # Pequeña pausa para no saturar
-                        await asyncio.sleep(0.1)
+                            # Enviar ping para mantener conexión viva
+                            if current_time - last_ping_time >= ping_interval:
+                                await websocket.send(json.dumps({"type": "ping"}))
+                                last_ping_time = current_time
+                                logger.debug("Ping enviado")
+
+                            # Enviar frame solo si pasó el intervalo
+                            if current_time - last_frame_time >= frame_interval:
+                                frame = self.get_frame()
+                                if frame:
+                                    # Codificar a base64
+                                    frame_b64 = base64.b64encode(frame).decode('utf-8')
+
+                                    # Crear mensaje
+                                    mensaje = {
+                                        "type": "video_frame",
+                                        "frame": frame_b64,
+                                        "timestamp": current_time,
+                                        "device_id": DEVICE_ID
+                                    }
+
+                                    # Enviar
+                                    await websocket.send(json.dumps(mensaje))
+                                    last_frame_time = current_time
+                                    logger.debug(f"Frame enviado ({len(frame_b64)} bytes)")
+
+                            # Pequeña pausa para no saturar
+                            await asyncio.sleep(0.1)
+                    finally:
+                        # Cancelar task de recepción al salir
+                        receive_task.cancel()
 
             except websockets.exceptions.WebSocketException as e:
                 logger.error(f"❌ Error WebSocket streaming: {e}")

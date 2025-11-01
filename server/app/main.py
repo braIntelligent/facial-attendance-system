@@ -519,8 +519,10 @@ async def obtener_dispositivos(request: Request):
                 pass
 
             dispositivos.append({
-                "device_id": device_id,
+                "id": device_id,  # Frontend usa .id
+                "device_id": device_id,  # Mantener por compatibilidad
                 "ip": ip,
+                "online": is_online,  # Frontend usa .online
                 "status": "online" if is_online else "offline",
                 "stream_url": f"http://{ip}:8080/video_feed",
                 "last_seen": datetime.now().isoformat() if is_online else None,
@@ -529,7 +531,8 @@ async def obtener_dispositivos(request: Request):
 
         return {
             "total": len(dispositivos),
-            "dispositivos": dispositivos,
+            "devices": dispositivos,  # Frontend usa .devices
+            "dispositivos": dispositivos,  # Mantener por compatibilidad
             "timestamp": datetime.now().isoformat()
         }
     except Exception as e:
