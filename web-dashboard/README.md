@@ -84,7 +84,7 @@ web-dashboard/
 La URL de la API se configura automaticamente en `config.js`:
 
 - **Desarrollo**: `http://localhost:8000` (cuando hostname es 'localhost')
-- **Produccion**: `https://iotinacap.eastus.cloudapp.azure.com`
+- **Produccion**: `https://tu-servidor.example.com`
 
 ## Caracteristicas
 
@@ -118,7 +118,7 @@ La URL de la API se configura automaticamente en `config.js`:
 
 1. Subir archivos al servidor web
 2. La aplicacion se conectara automaticamente a la API de produccion
-3. Acceder via `https://iotinacap.eastus.cloudapp.azure.com/web-dashboard/views/index.html`
+3. Acceder via `https://tu-servidor.example.com/web-dashboard/views/index.html`
 
 ## Ventajas de la Nueva Estructura
 

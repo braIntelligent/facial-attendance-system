@@ -231,13 +231,13 @@ libcamera-hello --list-cameras
 
 ```bash
 # Verificar conectividad
-ping iotinacap.eastus.cloudapp.azure.com
+ping tu-servidor.example.com
 
 # Verificar DNS
-nslookup iotinacap.eastus.cloudapp.azure.com
+nslookup tu-servidor.example.com
 
 # Verificar puerto 8000
-curl -I https://iotinacap.eastus.cloudapp.azure.com/api/health
+curl -I https://tu-servidor.example.com/api/health
 
 # Revisar archivo .env
 cat ~/facial-attendance-system/raspberry-pi/.env | grep SERVER_HOST
@@ -325,7 +325,7 @@ http://localhost:8080
 
 El método recomendado es usar el monitor del dashboard:
 ```
-https://iotinacap.eastus.cloudapp.azure.com/views/monitor.html
+https://tu-servidor.example.com/views/monitor.html
 ```
 
 ---

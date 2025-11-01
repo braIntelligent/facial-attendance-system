@@ -1,6 +1,6 @@
 # 🔒 Acceder al Stream de la Raspberry Pi vía Túnel SSH
 
-Como la Raspberry Pi está en una red privada (Inacap, tu casa, etc.) y no es accesible directamente desde internet, puedes usar un **túnel SSH** para ver el stream en tu computadora local.
+Como la Raspberry Pi está en una red privada (tu oficina, tu casa, etc.) y no es accesible directamente desde internet, puedes usar un **túnel SSH** para ver el stream en tu computadora local.
 
 ---
 
@@ -146,13 +146,13 @@ https://abc123.ngrok-free.app
 
 ---
 
-## 🎓 Para tu Presentación en Inacap
+## 🎓 Para Presentaciones o Demos
 
 ### Escenario 1: Presentas con tu laptop
 
 ```bash
 # Antes de la presentación, crear túnel SSH:
-ssh -L 8080:localhost:8080 matias@<IP-RASPBERRY-EN-INACAP>
+ssh -L 8080:localhost:8080 matias@<IP-RASPBERRY-EN-RED-LOCAL>
 
 # Abrir:
 http://localhost:8080

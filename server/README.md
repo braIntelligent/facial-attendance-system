@@ -382,10 +382,10 @@ Usar Nginx como reverse proxy con Let's Encrypt:
 ```nginx
 server {
     listen 443 ssl;
-    server_name iotinacap.eastus.cloudapp.azure.com;
+    server_name tu-servidor.example.com;
 
-    ssl_certificate /etc/letsencrypt/live/iotinacap.eastus.cloudapp.azure.com/fullchain.pem;
-    ssl_certificate_key /etc/letsencrypt/live/iotinacap.eastus.cloudapp.azure.com/privkey.pem;
+    ssl_certificate /etc/letsencrypt/live/tu-servidor.example.com/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/tu-servidor.example.com/privkey.pem;
 
     location / {
         proxy_pass http://localhost:8000;

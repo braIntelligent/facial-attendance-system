@@ -8,7 +8,7 @@
 # Asegurate de que el backend este corriendo
 # Debe estar disponible en:
 # - Desarrollo: http://localhost:8000
-# - Produccion: https://iotinacap.eastus.cloudapp.azure.com
+# - Produccion: https://tu-servidor.example.com
 ```
 
 ### 2. Abrir el Dashboard

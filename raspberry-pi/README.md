@@ -96,8 +96,8 @@ nano .env
 
 Editar con tus valores:
 ```env
-SERVER_HOST=iotinacap.eastus.cloudapp.azure.com
-DEVICE_ID=pi-aula-101  # Cambiar según aula
+SERVER_HOST=tu-servidor.example.com
+DEVICE_ID=pi-aula-101  # Cambiar según ubicación
 LED_GREEN_PIN=17
 LED_RED_PIN=27
 ```
@@ -123,7 +123,7 @@ Salida esperada:
 🔌 Inicializando GPIO...
 🎥 Inicializando cámara...
 ✅ Cámara: 640x480 @ 30fps
-🌐 Servidor: https://iotinacap.eastus.cloudapp.azure.com
+🌐 Servidor: https://tu-servidor.example.com
 📤 Envío al servidor: cada 2.0s
 
 🚀 SISTEMA ACTIVO
@@ -210,7 +210,7 @@ EOF
 ### Test de conexión al servidor
 
 ```bash
-curl https://iotinacap.eastus.cloudapp.azure.com/api/health
+curl https://tu-servidor.example.com/api/health
 ```
 
 Respuesta esperada:
@@ -264,7 +264,7 @@ sudo reboot
 
 - Verificar conectividad:
   ```bash
-  ping iotinacap.eastus.cloudapp.azure.com
+  ping tu-servidor.example.com
   ```
 - Verificar variables de entorno en `.env`
 - Revisar logs:
