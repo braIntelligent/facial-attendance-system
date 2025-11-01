@@ -1,0 +1,296 @@
+/* monitor.css - Estilos para la vista de monitoreo de camaras */
+
+/* Navigation Bar */
+.navbar {
+    background: var(--color-card);
+    padding: 15px 20px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    box-shadow: var(--shadow);
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.nav-link {
+    padding: 10px 20px;
+    color: var(--color-text);
+    text-decoration: none;
+    border-radius: 6px;
+    font-weight: 500;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.nav-link:hover {
+    background-color: var(--color-bg);
+}
+
+.nav-link.active {
+    background-color: var(--color-primary);
+    color: white;
+}
+
+/* Device Controls */
+.device-controls {
+    display: flex;
+    gap: 20px;
+    align-items: flex-end;
+    flex-wrap: wrap;
+}
+
+.control-group {
+    flex: 1;
+    min-width: 250px;
+}
+
+.control-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+    color: var(--color-text-light);
+}
+
+.device-select {
+    width: 100%;
+    padding: 12px 15px;
+    border: 2px solid var(--color-border);
+    border-radius: 8px;
+    font-size: 1rem;
+    background-color: white;
+    cursor: pointer;
+    transition: border-color 0.3s;
+}
+
+.device-select:focus {
+    outline: none;
+    border-color: var(--color-primary);
+}
+
+.device-select:disabled {
+    background-color: var(--color-bg);
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
+/* Device Info Grid */
+.device-info-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+}
+
+.info-item {
+    background: var(--color-bg);
+    padding: 15px;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.info-label {
+    font-size: 0.9rem;
+    color: var(--color-text-light);
+    font-weight: 500;
+}
+
+.info-value {
+    font-size: 1.1rem;
+    color: var(--color-text);
+    font-weight: 600;
+}
+
+.info-value.status-online {
+    color: var(--color-success);
+}
+
+.info-value.status-offline {
+    color: var(--color-danger);
+}
+
+/* Video Container */
+.video-container {
+    background: #000;
+    border-radius: 12px;
+    overflow: hidden;
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    margin-bottom: 20px;
+}
+
+.video-placeholder,
+.video-loading,
+.video-error {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    color: white;
+    text-align: center;
+    padding: 20px;
+}
+
+.video-placeholder p,
+.video-loading p,
+.video-error p {
+    font-size: 1.2rem;
+    margin: 0;
+}
+
+.video-error {
+    background: rgba(239, 68, 68, 0.1);
+}
+
+.video-error p {
+    margin-bottom: 15px;
+}
+
+/* Loading Spinner */
+.loading-spinner {
+    width: 50px;
+    height: 50px;
+    border: 4px solid rgba(255, 255, 255, 0.3);
+    border-top-color: white;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin-bottom: 15px;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* Video Stream */
+.video-stream {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: block;
+}
+
+/* Video Controls */
+.video-controls {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+/* Statistics Grid */
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+}
+
+.stat-card {
+    background: linear-gradient(135deg, var(--color-primary) 0%, #6366f1 100%);
+    padding: 20px;
+    border-radius: 12px;
+    text-align: center;
+    color: white;
+    box-shadow: var(--shadow-lg);
+}
+
+.stat-label {
+    font-size: 0.9rem;
+    opacity: 0.9;
+    margin-bottom: 10px;
+}
+
+.stat-value {
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+/* Fullscreen Support */
+.video-container:-webkit-full-screen {
+    width: 100%;
+    height: 100%;
+}
+
+.video-container:-moz-full-screen {
+    width: 100%;
+    height: 100%;
+}
+
+.video-container:-ms-fullscreen {
+    width: 100%;
+    height: 100%;
+}
+
+.video-container:fullscreen {
+    width: 100%;
+    height: 100%;
+}
+
+.video-container:-webkit-full-screen .video-stream {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.video-container:-moz-full-screen .video-stream {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.video-container:fullscreen .video-stream {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .device-controls {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .control-group {
+        min-width: 100%;
+    }
+
+    .video-controls {
+        flex-direction: column;
+    }
+
+    .video-controls .btn {
+        width: 100%;
+    }
+
+    .navbar {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .nav-link {
+        text-align: center;
+    }
+
+    .stats-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Animation for section reveal */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.seccion {
+    animation: fadeIn 0.3s ease;
+}

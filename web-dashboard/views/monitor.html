@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Monitoreo de Camaras - Sistema de Asistencia IoT</title>
+    <link rel="stylesheet" href="../assets/css/main.css">
+    <link rel="stylesheet" href="../assets/css/monitor.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content">
+                <h1>Monitoreo de Camaras</h1>
+                <p class="subtitle">Visualizacion en tiempo real de dispositivos</p>
+            </div>
+        </header>
+
+        <!-- Navigation Bar -->
+        <nav class="navbar">
+            <a href="index.html" class="nav-link">Dashboard</a>
+            <a href="add-student.html" class="nav-link">Agregar Estudiante</a>
+            <a href="monitor.html" class="nav-link active">Monitoreo de Camaras</a>
+        </nav>
+
+        <!-- Device Selector -->
+        <section class="seccion">
+            <div class="device-controls">
+                <div class="control-group">
+                    <label for="device-selector">Seleccionar Dispositivo:</label>
+                    <select id="device-selector" class="device-select">
+                        <option value="">Cargando dispositivos...</option>
+                    </select>
+                </div>
+                <button id="btn-refresh-devices" class="btn btn-secundario">
+                    Actualizar Lista
+                </button>
+            </div>
+        </section>
+
+        <!-- Device Info -->
+        <section class="seccion" id="device-info-section" style="display: none;">
+            <h2>Informacion del Dispositivo</h2>
+            <div class="device-info-grid">
+                <div class="info-item">
+                    <span class="info-label">ID del Dispositivo:</span>
+                    <span id="device-id" class="info-value">--</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Direccion IP:</span>
+                    <span id="device-ip" class="info-value">--</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Estado:</span>
+                    <span id="device-status" class="info-value">--</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Ultima Conexion:</span>
+                    <span id="device-last-seen" class="info-value">--</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Video Stream -->
+        <section class="seccion">
+            <h2>Stream de Video</h2>
+
+            <div id="video-container" class="video-container">
+                <div id="video-placeholder" class="video-placeholder">
+                    <p>Seleccione un dispositivo para ver el stream de video</p>
+                </div>
+
+                <div id="video-loading" class="video-loading" style="display: none;">
+                    <div class="loading-spinner"></div>
+                    <p>Cargando stream...</p>
+                </div>
+
+                <div id="video-error" class="video-error" style="display: none;">
+                    <p>Error al cargar el stream de video</p>
+                    <button id="btn-retry-stream" class="btn btn-primario">Reintentar</button>
+                </div>
+
+                <img id="video-stream" class="video-stream" style="display: none;" alt="Stream de video">
+            </div>
+
+            <div class="video-controls">
+                <button id="btn-toggle-stream" class="btn btn-primario" disabled>
+                    Iniciar Stream
+                </button>
+                <button id="btn-fullscreen" class="btn btn-secundario" disabled>
+                    Pantalla Completa
+                </button>
+            </div>
+        </section>
+
+        <!-- Statistics -->
+        <section class="seccion" id="stats-section" style="display: none;">
+            <h2>Estadisticas del Dispositivo</h2>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-label">Registros Hoy</div>
+                    <div id="stat-registros" class="stat-value">0</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Ultimo Registro</div>
+                    <div id="stat-ultimo" class="stat-value">--</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">FPS Promedio</div>
+                    <div id="stat-fps" class="stat-value">--</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>Sistema de Asistencia IoT v2.0 - Monitoreo en Tiempo Real</p>
+        </footer>
+    </div>
+
+    <!-- Toast notifications -->
+    <div id="toast-container" class="toast-container"></div>
+
+    <!-- Scripts -->
+    <script src="../assets/js/config.js"></script>
+    <script src="../assets/js/api.js"></script>
+    <script src="../assets/js/utils.js"></script>
+    <script src="../assets/js/monitor.js"></script>
+</body>
+</html>

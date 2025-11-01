@@ -1,0 +1,19 @@
+# requirements.txt - Raspberry Pi Client
+
+# Picamera2 (manejo de cámara Raspberry Pi)
+picamera2>=0.3.12
+
+# OpenCV para mostrar ventanas y procesamiento de imágenes
+opencv-python>=4.8.0
+
+# Pillow para conversión de imágenes
+Pillow>=10.0.0
+
+# Requests para comunicación HTTP con el servidor
+requests>=2.31.0
+
+# RPi.GPIO para control de LEDs
+RPi.GPIO>=0.7.1
+
+# Dependencias adicionales útiles
+numpy>=1.24.0

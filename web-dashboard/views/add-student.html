@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agregar Estudiante - Sistema de Asistencia IoT</title>
+    <link rel="stylesheet" href="../assets/css/main.css">
+    <link rel="stylesheet" href="../assets/css/students.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content">
+                <h1>Agregar Nuevo Estudiante</h1>
+                <p class="subtitle">Complete los datos y capture la foto</p>
+            </div>
+        </header>
+
+        <!-- Navigation Bar -->
+        <nav class="navbar">
+            <a href="index.html" class="nav-link">Dashboard</a>
+            <a href="add-student.html" class="nav-link active">Agregar Estudiante</a>
+            <a href="monitor.html" class="nav-link">Monitoreo de Camaras</a>
+        </nav>
+
+        <!-- Formulario de agregar estudiante -->
+        <section class="seccion">
+            <h2>Datos del Estudiante</h2>
+
+            <form id="form-agregar-estudiante">
+                <div class="form-grid">
+                    <div class="form-col-camara">
+                        <div class="camara-container">
+                            <video id="webcam-preview" autoplay muted playsinline></video>
+                            <img id="foto-preview" class="foto-preview" alt="Vista previa de la foto">
+                            <canvas id="webcam-canvas" style="display: none;"></canvas>
+                        </div>
+                        <button type="button" id="btn-iniciar-camara" class="btn btn-secundario">
+                            Iniciar Camara
+                        </button>
+                        <button type="button" id="btn-capturar-foto" class="btn btn-primario" style="display: none;">
+                            Capturar Foto
+                        </button>
+                    </div>
+
+                    <div class="form-col-datos">
+                        <div class="form-grupo">
+                            <label for="nombre-nuevo">Nombre Completo</label>
+                            <input type="text" id="nombre-nuevo" placeholder="Ej: Juan Perez" required>
+                        </div>
+                        <div class="form-grupo">
+                            <label for="rut-nuevo">RUT (Opcional)</label>
+                            <input type="text" id="rut-nuevo" placeholder="Ej: 12.345.678-9">
+                        </div>
+
+                        <div class="form-acciones">
+                            <button type="button" id="btn-cancelar-agregar" class="btn btn-error">
+                                Cancelar
+                            </button>
+                            <button type="submit" id="btn-guardar-estudiante" class="btn btn-exito" disabled>
+                                Guardar Estudiante
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </section>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>Sistema de Asistencia IoT v2.0</p>
+        </footer>
+    </div>
+
+    <!-- Toast notifications -->
+    <div id="toast-container" class="toast-container"></div>
+
+    <!-- Scripts -->
+    <script src="../assets/js/config.js"></script>
+    <script src="../assets/js/api.js"></script>
+    <script src="../assets/js/utils.js"></script>
+    <script src="../assets/js/student-form.js"></script>
+</body>
+</html>

@@ -1,0 +1,46 @@
+services:
+  mysql-db:
+    image: mysql:8.0
+    container_name: mysql-db
+    command: --default-authentication-plugin=mysql_native_password
+    restart: unless-stopped
+    environment:
+      TZ: 'America/Santiago'
+      
+      # --- CAMBIO AQUÍ ---
+      # Lee las variables del archivo .env
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASS}
+      MYSQL_DATABASE: ${DB_NAME}
+      MYSQL_USER: ${DB_USER}
+      MYSQL_PASSWORD: ${DB_PASS}
+    volumes:
+      - mysql_data:/var/lib/mysql
+    ports:
+      - "3306:3306"
+    networks:
+      - asistencia-net
+
+  phpmyadmin:
+    image: phpmyadmin
+    container_name: mysql-visor
+    restart: unless-stopped
+    depends_on:
+      - mysql-db
+    environment:
+      PMA_HOST: mysql-db
+      PMA_PORT: 3306
+      
+      # --- CAMBIO AQUÍ ---
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASS}
+    ports:
+      - "8080:80"
+    networks:
+      - asistencia-net
+
+networks:
+  asistencia-net:
+    driver: bridge
+
+volumes:
+  mysql_data:
+    driver: local
