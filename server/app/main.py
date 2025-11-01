@@ -11,6 +11,7 @@ import logging
 import uvicorn
 import os
 import re
+import asyncio
 from datetime import datetime
 from concurrent.futures import ThreadPoolExecutor
 from typing import Dict, Optional
@@ -18,6 +19,7 @@ from typing import Dict, Optional
 from fastapi import FastAPI, HTTPException, Request, File, UploadFile, Form, WebSocket, WebSocketDisconnect
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
+from contextlib import asynccontextmanager
 from pydantic import BaseModel
 from slowapi import Limiter, _rate_limit_exceeded_handler
 from slowapi.util import get_remote_address
@@ -53,6 +55,48 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 
 # ====================================
+# EVENTOS DE CICLO DE VIDA
+# ====================================
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    """
+    Contexto de ciclo de vida de la aplicación
+    Reemplaza los deprecated on_event("startup") y on_event("shutdown")
+    """
+    # STARTUP
+    logger.info(f"Iniciando {APP_NAME} v{APP_VERSION}...")
+
+    # Verificar si hay encodings cargados
+    if not face_recognition_processor.encodings_loaded:
+        logger.warning("Encodings no cargados. Generando desde fotos...")
+        estudiantes = db.obtener_estudiantes()
+        if estudiantes:
+            face_recognition_processor.generar_encodings_desde_fotos(estudiantes)
+        else:
+            logger.warning("No hay estudiantes en la base de datos")
+
+    logger.info(f"Servidor listo - ThreadPoolExecutor con {ASYNC_WORKERS} workers")
+
+    yield  # Aquí corre la aplicación
+
+    # SHUTDOWN
+    logger.info("Cerrando servidor...")
+
+    # Cerrar todas las conexiones WebSocket
+    for device_id, ws in list(active_websockets.items()):
+        try:
+            await ws.close()
+            logger.info(f"Conexión WebSocket cerrada: {device_id}")
+        except:
+            pass
+
+    # Cerrar ThreadPoolExecutor
+    executor.shutdown(wait=True)
+    logger.info("ThreadPoolExecutor cerrado")
+
+
+# ====================================
 # INICIALIZACIÓN DE FASTAPI
 # ====================================
 
@@ -62,7 +106,8 @@ limiter = Limiter(key_func=get_remote_address)
 app = FastAPI(
     title=APP_NAME,
     description=APP_DESCRIPTION,
-    version=APP_VERSION
+    version=APP_VERSION,
+    lifespan=lifespan
 )
 
 # Agregar rate limiter a la app
@@ -175,43 +220,6 @@ async def enviar_comando_websocket(device_id: str, comando: Dict) -> bool:
 # ====================================
 
 
-@app.on_event("startup")
-async def startup_event():
-    """
-    Evento de inicio - Cargar encodings y configuración
-    """
-    logger.info(f"Iniciando {APP_NAME} v{APP_VERSION}...")
-
-    # Verificar si hay encodings cargados
-    if not face_recognition_processor.encodings_loaded:
-        logger.warning("Encodings no cargados. Generando desde fotos...")
-        estudiantes = db.obtener_estudiantes()
-        if estudiantes:
-            face_recognition_processor.generar_encodings_desde_fotos(estudiantes)
-        else:
-            logger.warning("No hay estudiantes en la base de datos")
-
-    logger.info(f"Servidor listo - ThreadPoolExecutor con {ASYNC_WORKERS} workers")
-
-
-@app.on_event("shutdown")
-async def shutdown_event():
-    """
-    Evento de cierre - Limpiar recursos
-    """
-    logger.info("Cerrando servidor...")
-
-    # Cerrar todas las conexiones WebSocket
-    for device_id, ws in active_websockets.items():
-        try:
-            await ws.close()
-            logger.info(f"Conexión WebSocket cerrada: {device_id}")
-        except Exception as e:
-            logger.error(f"Error al cerrar WebSocket {device_id}: {e}")
-
-    # Apagar ThreadPoolExecutor
-    executor.shutdown(wait=True)
-    logger.info("ThreadPoolExecutor cerrado")
 
 
 # ====================================
@@ -282,7 +290,8 @@ async def procesar_frame(request: Request, frame_request: FrameRequest):
             raise HTTPException(status_code=400, detail="Error al decodificar imagen")
 
         # Procesar frame (se ejecuta en el thread pool para no bloquear)
-        resultado = await request.app.loop.run_in_executor(
+        loop = asyncio.get_event_loop()
+        resultado = await loop.run_in_executor(
             executor,
             face_recognition_processor.procesar_frame,
             img_array
