@@ -182,7 +182,7 @@ active_viewers: Dict[str, List[WebSocket]] = {}
 
 def limpiar_filename(nombre: str) -> str:
     """
-    Convierte 'Matías Cataldo' en 'matias_cataldo.jpg'
+    Convierte 'Juan Perez' en 'juan_perez.jpg'
 
     Args:
         nombre: Nombre completo del estudiante

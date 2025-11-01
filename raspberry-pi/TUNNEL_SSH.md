@@ -45,7 +45,7 @@ Agregar:
 ```
 Host raspberry-stream
     HostName <IP-RASPBERRY>
-    User matias
+    User username
     LocalForward 8080 localhost:8080
     ServerAliveInterval 60
     ServerAliveCountMax 3

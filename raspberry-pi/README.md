@@ -130,7 +130,7 @@ Salida esperada:
    📺 Stream local: 30 FPS
    📤 Envío servidor: cada 2.0s
 
-🌐 http://172.20.10.4:8080
+🌐 http://<IP-DE-TU-RASPBERRY>:8080
 ```
 
 ### Ver stream de cámara
