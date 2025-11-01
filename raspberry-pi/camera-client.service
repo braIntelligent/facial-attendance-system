@@ -1,0 +1,27 @@
+[Unit]
+Description=Raspberry Pi Camera Client - Sistema de Asistencia IoT
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=matias
+Group=matias
+WorkingDirectory=/home/matias/facial-attendance-system/raspberry-pi
+
+# Ejecutar con Python3 del sistema (usamos --break-system-packages)
+ExecStart=/usr/bin/python3 /home/matias/facial-attendance-system/raspberry-pi/camera_client.py
+
+# Reiniciar automáticamente si falla
+Restart=always
+RestartSec=10
+
+# Esperar a que la red esté realmente disponible
+ExecStartPre=/bin/sleep 5
+
+# Logs a systemd journal
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=multi-user.target
